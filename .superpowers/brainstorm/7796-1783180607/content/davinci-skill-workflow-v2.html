@@ -1,0 +1,65 @@
+<h2>DaVinci 一级调色批处理 Skill：更新版</h2>
+<p class="subtitle">新增：画面级过曝复查、跨片段一致性、效率优先的批量流程。</p>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">批量处理逻辑：先定基准，再逐条校准</div>
+    <div class="mockup-body">
+      <div style="display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:16px;align-items:stretch">
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fbfcff">
+          <div class="label">1. 批量基准</div>
+          <h3 style="margin-top:6px">建立一致性目标</h3>
+          <ul style="line-height:1.75;margin-left:18px">
+            <li>先选一条参考视频或参考帧</li>
+            <li>记录目标白平衡：RGB Parade 关键亮度段尽量齐平</li>
+            <li>记录目标曝光范围：高光上限、暗部下限、中灰分布</li>
+            <li>记录风格倾向：饱和度、HDR 感、冷暖偏好</li>
+          </ul>
+        </div>
+
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fffefa">
+          <div class="label">2. 每条视频</div>
+          <h3 style="margin-top:6px">固定节点树 + 快速判断</h3>
+          <ol style="line-height:1.75;margin-left:18px">
+            <li>降噪节点：只创建；暗部多时写注释</li>
+            <li>LUT 节点：SLog3SGamut3.CineToSLog2-709</li>
+            <li>主节点：白平衡、曝光、波形校正</li>
+            <li>增益节点：饱和度、轻压高光、抬暗部、HDR 感</li>
+            <li>窗口、外部、全局节点：创建并保留给后续人工精修</li>
+          </ol>
+        </div>
+
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fbfffb">
+          <div class="label">3. 复查</div>
+          <h3 style="margin-top:6px">波形 + 画面双重确认</h3>
+          <ul style="line-height:1.75;margin-left:18px">
+            <li>波形接近目标后，重新观察视频画面</li>
+            <li>如果出现明显过曝、死白或主体细节丢失，降低高光上限</li>
+            <li>若暗部抬升后噪点明显，只注释建议加强降噪</li>
+            <li>用同一套目标复查整组片段，保证白平衡和曝光一致</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;border-top:1px solid #e5e9f2;padding-top:14px">
+        <div class="label">效率原则</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px">
+          <div style="background:#f7f8fb;border-radius:8px;padding:12px">
+            <h3 style="margin:0 0 6px">少问</h3>
+            <p style="margin:0;line-height:1.6">批次开始只问风格和饱和度方向；单条片段只在异常时提醒。</p>
+          </div>
+          <div style="background:#f7f8fb;border-radius:8px;padding:12px">
+            <h3 style="margin:0 0 6px">复用</h3>
+            <p style="margin:0;line-height:1.6">同一批素材复用节点树、LUT、参考目标和判断阈值。</p>
+          </div>
+          <div style="background:#f7f8fb;border-radius:8px;padding:12px">
+            <h3 style="margin:0 0 6px">只碰一级</h3>
+            <p style="margin:0;line-height:1.6">窗口、外部、全局节点先搭好；复杂二级、主体突出、风格化交给后续精修。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle">接下来要确定：这个 skill 应该主要依赖脚本自动批处理，还是由 Codex 看屏幕并操作 Resolve 界面。</p>
