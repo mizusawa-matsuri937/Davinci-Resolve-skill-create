@@ -1,0 +1,62 @@
+<h2>DaVinci 一级调色批处理 Skill：当前理解</h2>
+<p class="subtitle">这张图先区分固定节点树、每个片段的视觉判读、以及自动化动作边界。</p>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">批处理主流程</div>
+    <div class="mockup-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch">
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fbfcff">
+          <div class="label">固定节点树</div>
+          <h3 style="margin-top:6px">每个片段先搭结构</h3>
+          <ol style="line-height:1.75;margin-left:18px">
+            <li>降噪节点：只创建</li>
+            <li>LUT 节点：SLog3SGamut3.CineToSLog2-709</li>
+            <li>串行主节点：曝光、白平衡、波形校正</li>
+            <li>增益节点：饱和度、HDR 感、轻压高光、抬暗部</li>
+            <li>串行窗口节点：只创建</li>
+            <li>外部节点：只创建</li>
+            <li>串行全局调整节点：只创建</li>
+          </ol>
+        </div>
+
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fffefa">
+          <div class="label">视觉与示波器判读</div>
+          <h3 style="margin-top:6px">每个片段独立观察</h3>
+          <ul style="line-height:1.75;margin-left:18px">
+            <li>看暗部占比，判断是否需要降噪提示</li>
+            <li>用 RGB Parade 判断白平衡：高光、中灰、暗部的 RGB 是否齐平</li>
+            <li>用波形判断曝光：高光接近顶部、暗部接近底部，但不压死细节</li>
+            <li>识别高光偏色、暗部饱和度污染、特定色相过饱和</li>
+          </ul>
+        </div>
+
+        <div style="border:1px solid #d8dee8;border-radius:8px;padding:14px;background:#fbfffb">
+          <div class="label">动作边界</div>
+          <h3 style="margin-top:6px">分成三类输出</h3>
+          <ul style="line-height:1.75;margin-left:18px">
+            <li><strong>自动处理</strong>：节点创建、LUT、基础曝光/白平衡建议或有限调整</li>
+            <li><strong>先询问你</strong>：整体饱和度方向、是否偏暖/偏冷、HDR 强弱</li>
+            <li><strong>只注释</strong>：降噪强度、窗口/外部节点、全局风格、复杂二级调色</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;border-top:1px solid #e5e9f2;padding-top:14px">
+        <div class="label">从 XMind 提炼出的核心校正准则</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+          <div style="background:#f7f8fb;border-radius:8px;padding:12px">
+            <h3 style="margin:0 0 6px">白平衡</h3>
+            <p style="margin:0;line-height:1.6">先看波形/分量图，色温处理红蓝，色调处理绿品；必要时用偏移、亮部、暗部、中灰让 RGB 在关键亮度段趋于一致。</p>
+          </div>
+          <div style="background:#f7f8fb;border-radius:8px;padding:12px">
+            <h3 style="margin:0 0 6px">曝光与 HDR 感</h3>
+            <p style="margin:0;line-height:1.6">主节点让高光触顶、暗部触底并保中灰；增益节点用对比度/轴心拉开波形，轻压高光、抬暗部来保留更多细节。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle">请在终端回复：这张流程图的大方向是否对？如果不对，先指出最想改的一处。</p>
